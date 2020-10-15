@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="blog.skin.class">
     <Header />
     <Nuxt />
   </div>
@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Header from "@/components/Header";
+import Header from "@/components/Header"; /* eslint-disable-line */
 
 export default Vue.extend({
   components: {
@@ -16,5 +16,17 @@ export default Vue.extend({
   data() {
     return {};
   },
+  computed: {
+    blog() {
+      return this.$store.state.blog;
+    },
+  },
 });
 </script>
+
+<style lang="less">
+.theme--dark {
+  background: #171d20;
+  height: 100vh;
+}
+</style>

@@ -14,7 +14,8 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
-    '~/static/iconfont/iconfont.css'
+    '~/static/iconfont/iconfont.css',
+    '~/static/css/common.css',
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)

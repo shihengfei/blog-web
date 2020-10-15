@@ -2,7 +2,7 @@
   <!-- 首页 -->
   <div class="home-wrap">
     <!-- 顶部banner区域 start -->
-    <div class="banner-wrap" style="background-image: url(/images/banner/bg1.jpg)"></div>
+    <div class="banner-wrap" style="background-image: url(/images/banner/bg11.jpg)"></div>
     <!-- 顶部banner区域 end -->
   </div>
 </template>
@@ -27,5 +27,9 @@ export default Vue.extend({
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.main {
+  &-wrap {
+  }
 }
 </style>

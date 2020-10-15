@@ -5,9 +5,12 @@
       <div class="pc-header-main" :class="headerClass">
         <!-- logo start -->
         <div class="logo">
-          <div class="logo-title">鲁攀的个人博客</div>
+          <div class="logo-title">{{ blog.title }}</div>
         </div>
         <!-- logo end -->
+        <div class="peeler-wrap">
+          <span class="iconfont" :class="'icon-' + blog.skin.icon" @click="switchSkin" />
+        </div>
         <!-- 搜索区域 start -->
         <div class="search-container">
           <span class="iconfont icon-search search-icon" />
@@ -37,6 +40,7 @@ import Vue from "vue";
 export default Vue.extend({
   data() {
     return {
+      scrollTop: 0,
       navBar: [
         {
           name: "首页",
@@ -49,7 +53,7 @@ export default Vue.extend({
           exact: false,
         },
         {
-          name: "个人项目",
+          name: "项目",
           link: "/project",
           exact: false,
         },
@@ -61,11 +65,30 @@ export default Vue.extend({
       if (this.$route.path !== "/") {
         return "default";
       }
-      return "home";
+      if (this.scrollTop >= 200) {
+        return "default";
+      } else {
+        return "home";
+      }
+    },
+    blog() {
+      return this.$store.state["blog"];
     },
   },
   mounted() {
-    console.log(this.routerPath);
+    console.log(this.$store.state["blog"]);
+    if (this.$route.path === "/") {
+      document.addEventListener("scroll", (e) => {
+        this.scrollTop =
+          document.documentElement.scrollTop || document.body.scrollTop;
+      });
+    }
+  },
+  methods: {
+    // 换肤
+    switchSkin() {
+      this.$store.commit("blog/switchSkin");
+    },
   },
 });
 </script>
@@ -95,9 +118,18 @@ export default Vue.extend({
   &-main {
     padding: 0.7rem 1.5rem;
     display: flex;
+    transition: background 0.5s;
     &.home {
+      background: transparent;
+      .logo {
+        display: none;
+      }
     }
     &.default {
+      background: #ffffff;
+      .logo {
+        display: block;
+      }
       .navBar-item__link {
         color: #222;
       }
@@ -111,9 +143,20 @@ export default Vue.extend({
       position: relative;
     }
   }
+  .peeler {
+    &-wrap {
+      text-align: right;
+      flex: 1;
+      line-height: 2rem;
+      margin-right: 1.5rem;
+      .iconfont {
+        font-size: 2rem;
+        cursor: pointer;
+      }
+    }
+  }
   .search {
     &-container {
-      flex: 1;
       text-align: right;
       position: relative;
     }
