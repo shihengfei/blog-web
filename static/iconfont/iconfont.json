@@ -6,6 +6,27 @@
   "description": "个人博客",
   "glyphs": [
     {
+      "icon_id": "1191688",
+      "name": "关闭",
+      "font_class": "close",
+      "unicode": "e711",
+      "unicode_decimal": 59153
+    },
+    {
+      "icon_id": "7674864",
+      "name": "展开",
+      "font_class": "open",
+      "unicode": "e712",
+      "unicode_decimal": 59154
+    },
+    {
+      "icon_id": "3402343",
+      "name": "月亮",
+      "font_class": "moon",
+      "unicode": "e6b8",
+      "unicode_decimal": 59064
+    },
+    {
       "icon_id": "6227848",
       "name": "搜索",
       "font_class": "search",
@@ -18,13 +39,6 @@
       "font_class": "sun",
       "unicode": "e616",
       "unicode_decimal": 58902
-    },
-    {
-      "icon_id": "11734519",
-      "name": "dark,夜间模式,黑夜模式,深色模式,暗黑模式",
-      "font_class": "moon",
-      "unicode": "e666",
-      "unicode_decimal": 58982
     }
   ]
 }

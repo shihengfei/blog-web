@@ -3,7 +3,7 @@ export const state = () => ({
   skin: {
     class: 'default',
     icon: 'moon'
-  }, // 皮肤
+  } // 皮肤
 })
 
 export const mutations = {

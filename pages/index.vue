@@ -4,6 +4,7 @@
     <!-- 顶部banner区域 start -->
     <div class="banner-wrap" style="background-image: url(/images/banner/bg11.jpg)"></div>
     <!-- 顶部banner区域 end -->
+    <!-- <div v-for="item in 50" :key="item">123</div> -->
   </div>
 </template>
 
@@ -14,6 +15,7 @@ export default Vue.extend({
   data() {
     return {};
   },
+  mounted() {},
 });
 </script>
 

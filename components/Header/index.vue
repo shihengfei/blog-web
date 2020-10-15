@@ -16,6 +16,7 @@
           <span class="iconfont icon-search search-icon" />
           <input type="text" class="search-input" />
         </div>
+        <!-- 搜索区域 end -->
         <div class="navBar-wrap">
           <div class="navBar-item" v-for="(item, index) in navBar" :key="index">
             <nuxt-link
@@ -26,11 +27,34 @@
             >{{ item.name }}</nuxt-link>
           </div>
         </div>
-        <!-- 搜索区域 end -->
       </div>
     </div>
     <!-- pc端顶部end -->
-    <div class="mobile-header">移动端头部</div>
+    <!-- mobile顶部 start -->
+    <div class="mobile-header">
+      <div class="mobile-header-main">
+        <div class="handle-wrap">
+          <span
+            class="iconfont"
+            :class="mobileNavBarShow ? 'icon-close' : 'icon-open'"
+            @click="mobileNavBarShow = !mobileNavBarShow"
+          ></span>
+        </div>
+        <div class="peeler-wrap">
+          <span class="iconfont" :class="'icon-' + blog.skin.icon" @click="switchSkin" />
+        </div>
+        <!-- 搜索区域 start -->
+        <div class="search-container">
+          <span class="iconfont icon-search search-icon" />
+          <input type="text" class="search-input" />
+        </div>
+        <!-- 搜索区域 end -->
+      </div>
+    </div>
+    <!-- mobile顶部 end -->
+    <!-- mobile 左侧抽屉 start -->
+    <aside class="sidebar" :class="mobileNavBarShow && 'sidebar-open'"></aside>
+    <!-- mobile 左侧抽屉 end -->
   </div>
 </template>
 
@@ -58,6 +82,7 @@ export default Vue.extend({
           exact: false,
         },
       ],
+      mobileNavBarShow: false,
     };
   },
   computed: {
@@ -76,12 +101,12 @@ export default Vue.extend({
     },
   },
   mounted() {
-    console.log(this.$store.state["blog"]);
+    console.log(this.$store.state["blog"], this.$route.path);
     if (this.$route.path === "/") {
-      document.addEventListener("scroll", (e) => {
+      window.onscroll = () => {
         this.scrollTop =
           document.documentElement.scrollTop || document.body.scrollTop;
-      });
+      };
     }
   },
   methods: {
@@ -152,6 +177,11 @@ export default Vue.extend({
       .iconfont {
         font-size: 2rem;
         cursor: pointer;
+        padding: 0 0.5rem;
+        border-radius: 0.3rem;
+        &:hover {
+          background: rgba(242, 242, 242, 0.5);
+        }
       }
     }
   }
@@ -201,6 +231,90 @@ export default Vue.extend({
         }
       }
     }
+  }
+}
+.mobile-header {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 99;
+  &-main {
+    padding: 0.7rem 0.5rem 0.7rem 1.5rem;
+    display: flex;
+    transition: background 0.5s;
+    .handle-wrap {
+      line-height: 2rem;
+      .iconfont {
+        font-size: 2rem;
+        cursor: pointer;
+      }
+    }
+    .peeler {
+      &-wrap {
+        text-align: right;
+        flex: 1;
+        line-height: 2rem;
+        margin-right: 1.5rem;
+        .iconfont {
+          font-size: 2rem;
+          cursor: pointer;
+          padding: 0 0.5rem;
+          border-radius: 0.3rem;
+          &:hover {
+            background: rgba(242, 242, 242, 0.5);
+          }
+        }
+      }
+    }
+    .search {
+      &-container {
+        text-align: right;
+        position: relative;
+      }
+      &-icon {
+        position: absolute;
+        top: 0.3rem;
+        left: 0.5rem;
+      }
+      &-input {
+        width: 1rem;
+        height: 2rem;
+        color: #4e6e8e;
+        border-radius: 2rem;
+        font-size: 0.9rem;
+        line-height: 2rem;
+        padding: 0 0.5rem 0 2rem;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #cfd4db;
+        outline: none;
+        transition: border-color 0.5s, width 0.5s;
+
+        &:focus {
+          border-color: #3eaf7c;
+          width: 8rem;
+        }
+      }
+    }
+  }
+}
+.sidebar {
+  transform: translateX(-100%);
+  font-size: 16px;
+  background-color: #fff;
+  width: 16.4rem;
+  position: fixed;
+  z-index: 10;
+  margin: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  border-right: 1px solid #eaecef;
+  overflow-y: auto;
+  transition: transform 0.2s ease;
+  &-open {
+    transform: translateX(0);
   }
 }
 </style>

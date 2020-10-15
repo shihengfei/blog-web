@@ -1,10 +1,13 @@
+
+import path from 'path';
+
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: '鲁攀的个人博客',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' },
       { hid: 'description', name: 'description', content: '' }
     ],
     link: [
@@ -20,6 +23,7 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    { src: '~/plugins/localstorage.js', ssr: false }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -44,5 +48,13 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+    extend(config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push()
+      }
+      config.resolve.alias['@components'] = path.resolve(__dirname, 'components');
+      config.resolve.alias['@utils'] = path.resolve(__dirname, 'utils');
+    }
   }
 }
