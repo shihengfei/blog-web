@@ -1,0 +1,30 @@
+{
+  "id": "2130332",
+  "name": "个人博客",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "个人博客",
+  "glyphs": [
+    {
+      "icon_id": "6227848",
+      "name": "搜索",
+      "font_class": "search",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "8396558",
+      "name": "icon_白天",
+      "font_class": "sun",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "11734519",
+      "name": "dark,夜间模式,黑夜模式,深色模式,暗黑模式",
+      "font_class": "moon",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    }
+  ]
+}
