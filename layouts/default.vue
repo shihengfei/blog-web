@@ -31,8 +31,6 @@ export default {
 #root {
   transition: background 0.5s;
   background: #ffffff;
-  // height: 100vh;
-  // overflow-y: auto;
   // 黑夜皮肤
   &.theme--dark {
     background: #171d20;
