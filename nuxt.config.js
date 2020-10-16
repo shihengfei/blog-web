@@ -2,6 +2,9 @@
 import path from 'path';
 
 export default {
+  server: {
+    port: 8001
+  },
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: '鲁攀的个人博客',
