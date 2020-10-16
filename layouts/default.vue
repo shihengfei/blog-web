@@ -38,20 +38,32 @@ export default {
     background: #171d20;
     .pc-header-main {
       background: #171d20;
-      .logo {
-        display: block;
-        &-title {
-          color: #ffffff;
-        }
-      }
-      .peeler-wrap {
-        .iconfont {
-          color: #ffffff;
-        }
-      }
-      .navBar-item__link {
-        color: #ffffff;
-      }
+    }
+    .pc-header-main .logo-title {
+      color: #ffffff;
+    }
+    .pc-header-main .peeler-wrap .iconfont {
+      color: #ffffff;
+    }
+    .pc-header-main .navBar-item__link {
+      color: #ffffff;
+    }
+    .mobile-header-main {
+      // 导航条背景颜色
+      background: #171d20;
+    }
+    .mobile-header-main .peeler-wrap .iconfont {
+      // 皮肤切换按钮
+      color: #ffffff;
+    }
+    .mobile-header-main .handle-wrap .iconfont {
+      // 移动端展开关闭按钮
+      color: #ffffff;
+    }
+    .sidebar {
+      // 移动端左侧展开导航栏
+      background: #171d20;
+      border-right: 1px solid #2f3133;
     }
   }
 }

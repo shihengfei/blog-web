@@ -53,7 +53,19 @@
     </div>
     <!-- mobile顶部 end -->
     <!-- mobile 左侧抽屉 start -->
-    <aside class="sidebar" :class="mobileNavBarShow && 'sidebar-open'"></aside>
+    <div class="sidebar-mark" @click="mobileNavBarShow = false" v-show="mobileNavBarShow"></div>
+    <aside class="sidebar" :class="mobileNavBarShow && 'sidebar-open'">
+      <div class="sidebar-wrap">
+        <div class="sidebar-item" v-for="(item, index) in navBar" :key="index">
+          <nuxt-link
+            :to="item.link"
+            class="sidebar-item__link"
+            active-class="sidebar-item__link__active"
+            :exact="item.exact"
+          >{{ item.name }}</nuxt-link>
+        </div>
+      </div>
+    </aside>
     <!-- mobile 左侧抽屉 end -->
   </div>
 </template>
@@ -138,6 +150,7 @@ export default {
   position: fixed;
   top: 0;
   width: 100vw;
+  z-index: 99;
   &-main {
     padding: 0.7rem 1.5rem;
     display: flex;
@@ -298,6 +311,14 @@ export default {
     }
   }
 }
+.sidebar-mark {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9;
+}
 .sidebar {
   transform: translateX(-100%);
   font-size: 16px;
@@ -312,9 +333,26 @@ export default {
   box-sizing: border-box;
   border-right: 1px solid #eaecef;
   overflow-y: auto;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, background 0.5s;
+  padding-top: 3.6rem;
   &-open {
     transform: translateX(0);
+  }
+  &-wrap {
+    border-bottom: 1px solid #eaecef;
+    padding: 0.5rem 0 0.75rem;
+  }
+  &-item {
+    line-height: 1.25rem;
+    font-size: 1.1em;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    &__link {
+      font-weight: 600;
+      color: #222222;
+      &__active {
+        color: #3eaf7c;
+      }
+    }
   }
 }
 </style>

@@ -6,11 +6,11 @@
   "description": "个人博客",
   "glyphs": [
     {
-      "icon_id": "1191688",
+      "icon_id": "1018905",
       "name": "关闭",
       "font_class": "close",
-      "unicode": "e711",
-      "unicode_decimal": 59153
+      "unicode": "e6e2",
+      "unicode_decimal": 59106
     },
     {
       "icon_id": "7674864",
