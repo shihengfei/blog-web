@@ -6,11 +6,10 @@
 </template>
 
 <script>
-import Vue from "vue";
 import Header from "@components/Header"; /* eslint-disable-line */
 import { Cache } from "@utils";
 
-export default Vue.extend({
+export default {
   components: {
     Header,
   },
@@ -25,7 +24,7 @@ export default Vue.extend({
   mounted() {
     document.getElementById("root").className = this.skinClass;
   },
-});
+};
 </script>
 
 <style lang="less">

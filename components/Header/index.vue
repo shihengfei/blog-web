@@ -58,10 +58,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-
-export default Vue.extend({
+<script>
+export default {
   data() {
     return {
       scrollTop: 0,
@@ -115,7 +113,7 @@ export default Vue.extend({
       this.$store.commit("blog/switchSkin");
     },
   },
-});
+};
 </script>
 
 <style lang="less">
@@ -192,7 +190,7 @@ export default Vue.extend({
     }
     &-icon {
       position: absolute;
-      top: 0.3rem;
+      top: 0.5rem;
       right: 8.5rem;
     }
     &-input {
@@ -273,8 +271,9 @@ export default Vue.extend({
       }
       &-icon {
         position: absolute;
-        top: 0.3rem;
+        top: 0.5rem;
         left: 0.5rem;
+        z-index: 0;
       }
       &-input {
         width: 1rem;
@@ -289,6 +288,7 @@ export default Vue.extend({
         border-color: #cfd4db;
         outline: none;
         transition: border-color 0.5s, width 0.5s;
+        z-index: 1;
 
         &:focus {
           border-color: #3eaf7c;
