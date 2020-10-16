@@ -7,6 +7,7 @@
         class="banner-avatar"
         src="https://www.sanghangning.cn/assets/img/index-logo.acd896b1.gif"
         alt
+        @click="goAdmin"
       />
       <div class="banner-right">
         <div class="banner-title">说说我的生活</div>
@@ -18,7 +19,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    goAdmin() {
+      this.$router.push("/admin/login");
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -44,6 +51,7 @@ export default {};
     margin-right: 40px;
     border-radius: 50%;
     max-width: 100%;
+    cursor: pointer;
   }
   &-right {
     color: #fff;
