@@ -63,6 +63,12 @@ export default {
       background: #171d20;
       border-right: 1px solid #2f3133;
     }
+    .sidebar .sidebar-item__link {
+      color: #ffffff;
+    }
+    .sidebar .sidebar-item__link__active {
+      color: #3eaf7c;
+    }
   }
 }
 </style>
