@@ -82,6 +82,11 @@ export default {
           exact: true,
         },
         {
+          name: "标签",
+          link: "/category",
+          exact: false,
+        },
+        {
           name: "归档",
           link: "/archives",
           exact: false,

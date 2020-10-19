@@ -8,6 +8,7 @@
 export default {
   head() {
     return {
+      title: "博客管理系统-登录",
       script: [
         {
           type: "text/javascript",

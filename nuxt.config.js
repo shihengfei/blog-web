@@ -47,8 +47,15 @@ export default {
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
-
+  axios: {
+    proxy: true
+  },
+  proxy: {
+    '/api/': {
+      target: 'http://localhost:7001',
+      changeOrigin: true
+    }
+  },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     transpile: [/^element-ui/],

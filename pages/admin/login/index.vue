@@ -11,7 +11,7 @@
         <el-form-item>
           <el-input prefix-icon="el-icon-lock" v-model="form.pwd" show-password />
         </el-form-item>
-        <el-button type="primary" style="width: 100%;">登录</el-button>
+        <el-button type="primary" style="width: 100%;" @click="login">登录</el-button>
       </el-form>
     </div>
   </div>
@@ -67,6 +67,9 @@ export default {
         ],
         100
       );
+    },
+    login() {
+      this.$router.push("/admin/main/home");
     },
   },
 };

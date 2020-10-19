@@ -22,7 +22,7 @@
 export default {
   methods: {
     goAdmin() {
-      this.$router.push("/admin/login");
+      window.open("/admin/login", "_blank");
     },
   },
 };

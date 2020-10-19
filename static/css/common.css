@@ -28,3 +28,30 @@ a {
 * {
   transition: background .5s;
 }
+
+/* element-ui 样式适配 */
+.el-dialog {
+  border-radius: 10px;
+}
+.el-dialog__header {
+  border-bottom: 1px solid #E8E8E8;
+  padding: 20px;
+}
+.el-dialog__footer {
+  border-top: 1px solid #E8E8E8;
+  padding: 20px;
+}
+.el-dialog__title {
+  font-size: 16px;
+  color: #333333;
+}
+.el-form-item {
+  margin-bottom: 28px;
+}
+.el-form-item__label {
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 14px;
+}
+.el-select {
+  width: 100%;
+}
