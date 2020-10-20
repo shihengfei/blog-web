@@ -1,9 +1,19 @@
 /* eslint-disable */
 
 import axios from 'axios'
-// import { message } from 'antd';
+import { Message } from 'element-ui'
 // import { Cache } from '@utils';
 // import { router, history } from 'umi';
+
+
+// 封装获取 cookie 的方法
+function getCookie(name) {
+  var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+  if (arr = document.cookie.match(reg))
+    return unescape(arr[2]);
+  else
+    return null;
+}
 
 const apiVersion = '/api'
 // 鉴权白名单
@@ -19,6 +29,7 @@ Service.interceptors.request.use(function (config) {
   //   const userInfo = Cache.get('userInfo');
   //   config['headers']['authorization'] = `Bearer ${userInfo.token}`
   // }
+  config['headers']['x-csrf-token'] = getCookie("csrfToken");
   // 在发送请求之前做些什么
   return config;
 }, function (error) {
@@ -31,9 +42,9 @@ Service.interceptors.response.use(function (response) {
   const config = response.config.config
   const data = response.data
   // 对响应数据做点什么
-  // if (!data.success && !config.selfTip) {
-  //   message.error(data.message);
-  // }
+  if (!data.success && !config.selfTip) {
+    Message.error(data.message);
+  }
   // if (data.code === 401) {
   //   const { pathname, search } = window.location;
   //   router.push(`/login?callbackUrl=${encodeURIComponent(pathname + search)}`);

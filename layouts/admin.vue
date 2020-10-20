@@ -32,11 +32,6 @@
 
 <script>
 export default {
-  head() {
-    return {
-      title: "博客管理系统",
-    };
-  },
   data() {
     return {
       navBar: [

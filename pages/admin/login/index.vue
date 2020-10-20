@@ -11,7 +11,7 @@
         <el-form-item>
           <el-input prefix-icon="el-icon-lock" v-model="form.pwd" show-password />
         </el-form-item>
-        <el-button type="primary" style="width: 100%;" @click="login">登录</el-button>
+        <el-button type="primary" size="medium" style="width: 100%;" @click="login">登录</el-button>
       </el-form>
     </div>
   </div>
@@ -19,7 +19,20 @@
 
 <script>
 export default {
-  layout: "login",
+  layout: "blank",
+  head() {
+    return {
+      title: "博客管理系统-登录",
+      script: [
+        {
+          type: "text/javascript",
+          src: "/js/rainyday.js",
+          body: true,
+          async: true,
+        },
+      ]
+    };
+  },
   data() {
     return {
       form: {
