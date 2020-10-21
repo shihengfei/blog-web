@@ -21,9 +21,9 @@ export default {
   css: [
     'element-ui/lib/theme-chalk/index.css',
     'mavon-editor/dist/css/index.css',
-    'quill/dist/quill.snow.css',
-    'quill/dist/quill.bubble.css',
-    'quill/dist/quill.core.css',
+    // 'quill/dist/quill.snow.css',
+    // 'quill/dist/quill.bubble.css',
+    // 'quill/dist/quill.core.css',
     '~/static/iconfont/iconfont.css',
     '~/static/css/reset.css',
     '~/static/css/common.css',
@@ -34,7 +34,7 @@ export default {
     '@/plugins/element-ui',
     '@/plugins/filter',
     { src: '@/plugins/mavon-editor.js', ssr: false },
-    { src:'@/plugins/vue-quill-editor', ssr:false },
+    // { src:'@/plugins/vue-quill-editor', ssr:false },
     { src: '~/plugins/localstorage.js', ssr: false }
   ],
 

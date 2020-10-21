@@ -104,6 +104,12 @@ export default {
   height: 100vh;
   width: 150px !important;
   transition: width 0.5s;
+  .el-menu {
+    width: 150px!important;
+    &.el-menu--collapse {
+      width: 64px!important;
+    }
+  }
   &.collapse {
     width: 65px !important;
     .logo {
