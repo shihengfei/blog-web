@@ -30,7 +30,7 @@ export default {
 <style lang="less">
 #root {
   transition: background 0.5s;
-  background: #ffffff;
+  background: #f4f4f4;
   // 黑夜皮肤
   &.theme--dark {
     background: #171d20;
@@ -68,6 +68,24 @@ export default {
     }
     .sidebar .sidebar-item__link__active {
       color: #3eaf7c;
+    }
+    .article-item {
+      background: #2f3133;
+    }
+    .article-title {
+      color: #ffffff;
+    }
+    .article-date {
+      color: hsla(0, 0%, 100%, 0.7);
+    }
+    .article-details-wrap {
+      background: #2f3133;
+    }
+    .article-details-title {
+      color: #ffffff;
+    }
+    .markdown-body pre {
+      background: #a8a19f;
     }
   }
 }

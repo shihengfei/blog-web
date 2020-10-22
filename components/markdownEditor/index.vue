@@ -1,6 +1,6 @@
 <template>
   <no-ssr>
-    <mavon-editor :value="editorContent" @change="change" />
+    <mavon-editor :value="editorContent" @change="change" codeStyle="atelier-forest-dark" />
   </no-ssr>
 </template>
 
@@ -25,7 +25,7 @@ export default {
     },
     emitChange: _.debounce(function (source, code) {
       this.$emit("contentChange", { source, code });
-    }, 3000),
+    }, 1000),
     /*
      *@title: 内容改变回调
      *@description:

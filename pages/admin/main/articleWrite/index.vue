@@ -33,23 +33,22 @@
         </el-form>
       </div>
       <div class="article-add-header-middle">
-        <input
-          type="text"
-          v-model="form.articleTitle"
-          placeholder="请输入文章标题"
-          @input="titleChange"
-        />
+        <input type="text" v-model="form.articleTitle" placeholder="请输入文章标题" @input="titleChange" />
       </div>
       <div class="article-add-header-right">
-        <el-button type="primary" @click="publish()">发布</el-button>
+        <span v-if="saveLoading" class="tip">
+          <i class="el-icon-loading"></i>
+          文章保存中
+        </span>
+        <span v-else class="tip">{{ saveMessage }}</span>
+        <el-button type="primary" @click="publish()" style="margin-left: 15px">发布</el-button>
       </div>
     </div>
     <div class="article-add-main">
-      <markdownEditor
-        ref="markdownEditor"
-        @contentChange="markdownEditorChange"
-      />
+      <markdownEditor ref="markdownEditor" @contentChange="markdownEditorChange" />
     </div>
+
+    <confirm ref="confirm" />
   </div>
 </template>
 
@@ -57,11 +56,11 @@
 import { Axios, Uuid, _, Moment } from "@utils";
 import markdownEditor from "@components/markdownEditor";
 import richtextEditor from "@components/richtextEditor";
+
 export default {
   layout: "blank",
   head() {
     return {
-      title: "博客管理系统-添加文章",
       script: [
         {
           type: "text/javascript",
@@ -71,6 +70,12 @@ export default {
       ],
     };
   },
+  asyncData({ app, query }, callback) {
+    app.head.title = `博客管理系统-${
+      query.type === "create" ? "添加文章" : "编辑文章"
+    }`;
+    callback(null, {});
+  },
   components: {
     markdownEditor,
     richtextEditor,
@@ -78,6 +83,10 @@ export default {
   data() {
     return {
       articleCategory: [],
+      loading: null,
+      notify: null,
+      saveLoading: false,
+      saveMessage: null,
       form: {
         articleId: null,
         articleTitle: "未命名文章",
@@ -106,12 +115,26 @@ export default {
     },
   },
   mounted() {
-    this.getCategoryList();
-    this.$notify.info({
+    this.notify = this.$notify.info({
       title: "温馨提示",
       message: "文章实时自动保存至草稿",
+      position: "bottom-right",
+      duration: 0,
     });
-    this.type === "create" ? this.initCreate() : this.initEdit();
+    if (this.type === "create") {
+      this.getCategoryList();
+      this.initCreate();
+    } else {
+      this.loading = this.$loading({
+        lock: true,
+        text: "加载文章中",
+        spinner: "el-icon-loading",
+      });
+      this.getCategoryList(this.initEdit);
+    }
+  },
+  destroyed() {
+    this.notify.close();
   },
   methods: {
     /*
@@ -133,14 +156,8 @@ export default {
     async initEdit() {
       const { articleId } = this.$route.query;
       this.form.articleId = articleId;
-      const loading = this.$loading({
-        lock: true,
-        text: "加载文章中",
-        spinner: "el-icon-loading",
-      });
       const result = await Axios.get(`/admin/article/view/${articleId}`);
-      console.log(result);
-      loading.close();
+      this.loading.close();
       this.form = {
         articleId,
         articleTitle: result.articleTitle,
@@ -171,8 +188,9 @@ export default {
      *@author: lupan
      *@date: 2020-10-21 13:49:55
      */
-    async getCategoryList() {
+    async getCategoryList(cb = () => {}) {
       this.categoryList = (await Axios.get("/admin/category")) || [];
+      cb();
     },
     /*
      *@title: 文章发布
@@ -180,7 +198,22 @@ export default {
      *@author: lupan
      *@date: 2020-10-21 13:50:51
      */
-    async publish() {},
+    async publish() {
+      this.$refs["confirm"].open({
+        message: `是否发布文章《${this.form.articleTitle}》`,
+        ok: async (cb) => {
+          const result = await Axios.put(
+            `/admin/article/publish/${this.form.articleId}/formal`,
+            {},
+            { allData: true }
+          );
+          cb();
+          if (!result.success) return;
+          this.$message.success("文章发布成功");
+          this.$router.push("/admin/main/articleList");
+        },
+      });
+    },
     /*
      *@title: 文章实时保存
      *@description:
@@ -189,7 +222,7 @@ export default {
      */
     realTimeSave: _.debounce(function () {
       this.save();
-    }, 3000),
+    }, 1000),
     /*
      *@title: 文章保存草稿
      *@description:
@@ -197,6 +230,7 @@ export default {
      *@date: 2020-10-21 14:52:29
      */
     async save() {
+      this.saveLoading = true;
       const result = await Axios.post(
         "/admin/article",
         {
@@ -208,10 +242,14 @@ export default {
         { allData: true }
       );
       if (!result.success) return;
-      this.$notify.success({
-        title: "温馨提示",
-        message: `${Moment().format("YYYY-MM-DD HH:mm:ss")} 已保存至草稿`,
-      });
+      this.saveLoading = false;
+      this.saveMessage = `${Moment().format(
+        "YYYY-MM-DD HH:mm:ss"
+      )} 已保存至草稿`;
+      // this.$notify.success({
+      //   title: "温馨提示",
+      //   message: `${Moment().format("YYYY-MM-DD HH:mm:ss")} 已保存至草稿`,
+      // });
     },
     /*
      *@title: 标题数据改变
@@ -274,6 +312,7 @@ export default {
       padding: 30px;
       display: flex;
       box-shadow: rgb(170, 170, 170) 0px 0px 2px;
+      background: #ffffff;
       &-left {
         // flex: 3;
       }
@@ -294,6 +333,10 @@ export default {
       &-right {
         flex: 1;
         text-align: right;
+        .tip {
+          font-size: 15px;
+          color: #666;
+        }
       }
     }
     &-main {

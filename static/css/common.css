@@ -18,6 +18,9 @@ a {
   text-decoration: none;
 }
 
+body {
+  background: #F4F4F4;
+}
 /* element-ui 样式适配 */
 .el-dialog {
   border-radius: 10px;

@@ -15,11 +15,30 @@
       </div>
     </div>
     <!-- 顶部banner区域 end -->
+    <div class="main-wrap">
+      <articleItem v-for="item in articleList" :key="item.articleId" :article="item" />
+    </div>
   </div>
 </template>
 
 <script>
+import { Axios } from "@utils";
+import articleItem from "@components/articleItem";
+
 export default {
+  components: {
+    articleItem,
+  },
+  async asyncData() {
+    const result = await Axios.get("/web/article/list", {
+      pageNo: 1,
+      pageSize: 10,
+    });
+    return {
+      articleList: result.rows,
+      total: result.count,
+    };
+  },
   methods: {
     goAdmin() {
       window.open("/admin/login", "_blank");
@@ -36,7 +55,7 @@ export default {
 }
 .banner {
   &-wrap {
-    width: 100vw;
+    // width: 100vw;
     height: 600px;
     background-repeat: no-repeat;
     background-position: 50%;
@@ -70,6 +89,8 @@ export default {
 }
 .main {
   &-wrap {
+    // background: #f4f4f4;
+    padding: 30px 24px;
   }
 }
 </style>

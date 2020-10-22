@@ -43,6 +43,9 @@
         <el-form-item label="分类标题" prop="categoryName">
           <el-input placeholder="输入分类标题" clearable v-model="form.categoryName" />
         </el-form-item>
+        <el-form-item label="标签颜色" prop="categoryBgColor">
+          <el-color-picker v-model="form.categoryBgColor" show-alpha />
+        </el-form-item>
         <el-form-item label="上级分类" prop="categoryParentId">
           <el-select
             v-model="form.categoryParentId"
@@ -72,13 +75,9 @@
 
 <script>
 import { Axios } from "@utils";
-import confirm from "@components/confirm";
 
 export default {
   layout: "admin",
-  components: {
-    confirm,
-  },
   head() {
     return {
       title: "博客管理系统-文章分类",
@@ -94,10 +93,14 @@ export default {
       form: {
         categoryName: null,
         categoryParentId: null,
+        categoryBgColor: "rgba(0, 0, 0, 1)",
       },
       rules: {
         categoryName: [
           { required: true, message: "输入分类名称", trigger: "blur" },
+        ],
+        categoryBgColor: [
+          { required: true, message: "选择标签颜色", trigger: "change" },
         ],
         categoryParentId: [
           { required: true, message: "选择上级分类", trigger: "change" },
@@ -140,11 +143,13 @@ export default {
       this.form = {
         categoryName: e.categoryName,
         categoryParentId: e.categoryParentId ? e.categoryParentId : "-",
+        categoryBgColor: e.categoryBgColor,
       };
       this.show = true;
     },
     close() {
       this.$refs["form"].resetFields();
+      this.form.categoryBgColor = "rgba(0, 0, 0, 1)";
       this.editId = null;
       this.show = false;
     },
@@ -155,7 +160,10 @@ export default {
           this.submitLoading = true;
           const result = await Axios.put(
             `/admin/category/${this.editId}`,
-            { categoryName: this.form.categoryName },
+            {
+              categoryName: this.form.categoryName,
+              categoryBgColor: this.form.categoryBgColor,
+            },
             {
               allData: true,
             }
@@ -166,6 +174,7 @@ export default {
         } else {
           const params = {
             categoryName: this.form.categoryName,
+            categoryBgColor: this.form.categoryBgColor,
             categoryParentId:
               this.form.categoryParentId === "-"
                 ? null

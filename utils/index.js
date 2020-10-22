@@ -4,6 +4,8 @@ import * as axios from './axios';
 import * as uuid from 'node-uuid';
 import * as underscore from 'underscore';
 
+moment.locale('zh-cn');
+
 export const Moment = moment;
 export const Cache = cache;
 export const Axios = axios;

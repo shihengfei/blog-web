@@ -5,7 +5,7 @@
       <div class="pc-header-main" :class="headerClass">
         <!-- logo start -->
         <div class="logo">
-          <div class="logo-title">{{ blog.title }}</div>
+          <a class="logo-title" href="/">{{ blog.title }}</a>
         </div>
         <!-- logo end -->
         <div class="peeler-wrap">

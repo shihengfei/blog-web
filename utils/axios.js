@@ -6,22 +6,14 @@ import { Message } from 'element-ui'
 // import { router, history } from 'umi';
 
 
-// 封装获取 cookie 的方法
-function getCookie(name) {
-  var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-  if (arr = document.cookie.match(reg))
-    return unescape(arr[2]);
-  else
-    return null;
-}
 
-const apiVersion = '/api'
 // 鉴权白名单
 // const authWhiteList = ['/user/login'];
 
 const Service = axios.create({
-  baseURL: apiVersion
+  baseURL: 'http://127.0.0.1:7001/api'
 });
+
 
 // 添加请求拦截器
 Service.interceptors.request.use(function (config) {
@@ -29,7 +21,6 @@ Service.interceptors.request.use(function (config) {
   //   const userInfo = Cache.get('userInfo');
   //   config['headers']['authorization'] = `Bearer ${userInfo.token}`
   // }
-  config['headers']['x-csrf-token'] = getCookie("csrfToken");
   // 在发送请求之前做些什么
   return config;
 }, function (error) {
