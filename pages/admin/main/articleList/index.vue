@@ -3,7 +3,11 @@
     <div class="article-header">
       <el-form :inline="true" ref="queryForm">
         <el-form-item label="文章名称">
-          <el-input placeholder="输入文章名称" clearable v-model="queryForm.categoryName" />
+          <el-input
+            placeholder="输入文章名称"
+            clearable
+            v-model="queryForm.categoryName"
+          />
         </el-form-item>
         <el-form-item label="文章分类">
           <el-cascader
@@ -14,7 +18,7 @@
             :props="{
               value: 'categoryId',
               label: 'categoryName',
-              checkStrictly: true
+              checkStrictly: true,
             }"
           />
         </el-form-item>
@@ -23,29 +27,53 @@
           <el-button type="primary">查询</el-button>
         </el-form-item>
       </el-form>
-      <el-button type="primary" icon="el-icon-plus" @click="addArticle">添加文章</el-button>
+      <el-button type="primary" icon="el-icon-plus" @click="addArticle"
+        >添加文章</el-button
+      >
     </div>
     <div class="article-main">
       <el-table :data="articeleList" border v-loading="listLoading">
-        <el-table-column prop="articleTitle" label="标题" align="center" width="300"></el-table-column>
-        <el-table-column prop="name" label="分类" align="center"></el-table-column>
+        <el-table-column
+          prop="articleTitle"
+          label="标题"
+          align="center"
+          width="300"
+        ></el-table-column>
+        <el-table-column label="一级分类" align="center">
+          <template slot-scope="scope">
+            {{ scope.row.firstCategoryId | firstCategory }}
+          </template>
+        </el-table-column>
+        <el-table-column label="二级分类" align="center">
+          <template slot-scope="scope">
+            {{ scope.row.secondCategoryId | secondCategory }}
+          </template>
+        </el-table-column>
         <el-table-column label="状态" width="70" align="center">
           <template slot-scope="scope">
-            <el-tag type="success" v-if="scope.row.articleState === 'draft'">草稿</el-tag>
+            <el-tag type="success" v-if="scope.row.articleState === 'draft'"
+              >草稿</el-tag
+            >
             <el-tag v-else>已发布</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="类型" width="100" align="center">
           <template slot-scope="scope">
-            <el-tag type="info" v-if="scope.row.articleType === 'markdown'">markdown</el-tag>
+            <el-tag type="info" v-if="scope.row.articleType === 'markdown'"
+              >markdown</el-tag
+            >
             <el-tag type="warning" v-else>富文本</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="创建时间" width="150px" align="center">
-          <template slot-scope="scope">{{ scope.row.createdAt | dateFilter }}</template>
+          <template slot-scope="scope">{{
+            scope.row.createdAt | dateFilter
+          }}</template>
         </el-table-column>
         <el-table-column label="更新时间" width="150px" align="center">
-          <template slot-scope="scope">{{ scope.row.updatedAt | dateFilter }}</template>
+          <template slot-scope="scope">{{
+            scope.row.updatedAt | dateFilter
+          }}</template>
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
@@ -55,7 +83,11 @@
         </el-table-column>
       </el-table>
       <div class="article-page">
-        <el-pagination background layout="total, prev, pager, next" :total="total" />
+        <el-pagination
+          background
+          layout="total, prev, pager, next"
+          :total="total"
+        />
       </div>
     </div>
     <confirm ref="confirm" />
@@ -65,6 +97,7 @@
 <script>
 import { Axios } from "@utils";
 import confirm from "@components/confirm";
+let self;
 
 export default {
   layout: "admin",
@@ -72,6 +105,32 @@ export default {
     return {
       title: "博客管理系统-文章列表",
     };
+  },
+  filters: {
+    firstCategory(e) {
+      if (!e) return "-";
+      const categoryArr = e.split(",");
+      return categoryArr
+        .map(
+          (id) =>
+            self.categoryList.filter((item) => item.categoryId === id)[0]
+              .categoryName
+        )
+        .join(",");
+    },
+    secondCategory(e) {
+      if (!e) return "-";
+      const categoryArr = e.split(",");
+      return categoryArr
+        .map(
+          (id) =>
+            self.categoryList
+              .map((item) => item.children)
+              .flat()
+              .filter((item) => item.categoryId === id)[0].categoryName
+        )
+        .join(",");
+    },
   },
   components: {
     confirm,
@@ -93,6 +152,7 @@ export default {
     };
   },
   mounted() {
+    self = this;
     this.getCategoryList();
     this.getArticleList();
   },

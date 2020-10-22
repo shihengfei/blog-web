@@ -24,7 +24,6 @@ export default {
       this.editorContent = content;
     },
     emitChange: _.debounce(function (source, code) {
-      console.log(content);
       this.$emit("contentChange", { source, code });
     }, 3000),
     /*

@@ -8,15 +8,16 @@
           </el-form-item>
           <el-form-item label="文章分类">
             <el-cascader
-              v-model="form.articleCategory"
+              v-model="articleCategory"
               placeholder="选择文章分类"
               :options="categoryList"
+              @change="categoryChange"
               clearable
               :props="{
-              value: 'categoryId',
-              label: 'categoryName',
-              multiple: true
-            }"
+                value: 'categoryId',
+                label: 'categoryName',
+                multiple: true,
+              }"
             />
           </el-form-item>
           <el-form-item label="文章类型">
@@ -32,14 +33,22 @@
         </el-form>
       </div>
       <div class="article-add-header-middle">
-        <input type="text" v-model="form.articleTitle" placeholder="请输入文章标题" @input="titleChange" />
+        <input
+          type="text"
+          v-model="form.articleTitle"
+          placeholder="请输入文章标题"
+          @input="titleChange"
+        />
       </div>
       <div class="article-add-header-right">
         <el-button type="primary" @click="publish()">发布</el-button>
       </div>
     </div>
     <div class="article-add-main">
-      <markdownEditor ref="markdownEditor" @contentChange="markdownEditorChange" />
+      <markdownEditor
+        ref="markdownEditor"
+        @contentChange="markdownEditorChange"
+      />
     </div>
   </div>
 </template>
@@ -68,13 +77,15 @@ export default {
   },
   data() {
     return {
+      articleCategory: [],
       form: {
         articleId: null,
         articleTitle: "未命名文章",
         articleContentCode: "",
         articleContentSource: "",
-        articleCategory: [],
         articleType: "markdown",
+        firstCategoryId: "",
+        secondCategoryId: "",
       },
       articleType: [
         {
@@ -128,16 +139,30 @@ export default {
         spinner: "el-icon-loading",
       });
       const result = await Axios.get(`/admin/article/view/${articleId}`);
+      console.log(result);
       loading.close();
       this.form = {
         articleId,
         articleTitle: result.articleTitle,
-        articleContent: result.articleContent.articleContent,
-        articleCategory: [],
+        articleContentCode: result.articleContent.articleContentCode,
+        articleContentSource: result.articleContent.articleContentSource,
         articleType: "markdown",
+        firstCategoryId: result.firstCategoryId, // 一级分类
+        secondCategoryId: result.secondCategoryId, // 二级分类
       };
+      const categoryList = this.categoryList
+        .map((item) => item.children)
+        .flat();
+      this.articleCategory = result.secondCategoryId
+        ? result.secondCategoryId.split(",").map((item) => {
+            const article = categoryList.filter(
+              (filterItem) => item === filterItem.categoryId
+            )[0];
+            return [article.categoryParentId, item];
+          })
+        : [];
       this.$refs["markdownEditor"].setEditorContent(
-        result.articleContent.articleContent
+        result.articleContent.articleContentSource
       );
     },
     /*
@@ -198,14 +223,31 @@ export default {
       this.realTimeSave();
     },
     /*
+     *@name: 文章分类数据改变
+     *@param:{type}
+     *@description:
+     *@return:
+     *@author: lupan
+     *@date: 2020-10-22 08:22:14
+     */
+    categoryChange(e) {
+      console.log(e);
+      const firstArr = e.map((item) => item[0]);
+      const secondArr = e.map((item) => item[1]);
+      this.form.firstCategoryId = Array.from(new Set(firstArr)).join(",");
+      this.form.secondCategoryId = Array.from(new Set(secondArr)).join(",");
+      this.realTimeSave();
+    },
+    /*
      *@title: makedown内容改变
      *@description:
      *@author: lupan
      *@date: 2020-10-21 15:08:29
      */
-    markdownEditorChange(source, code) {
+    markdownEditorChange({ source, code }) {
       this.form.articleContentSource = source;
       this.form.articleContentCode = code;
+      console.log(this.form);
       this.save();
     },
     /*
