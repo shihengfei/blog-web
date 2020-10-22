@@ -11,7 +11,7 @@ import { Message } from 'element-ui'
 // const authWhiteList = ['/user/login'];
 
 const Service = axios.create({
-  baseURL: 'http://127.0.0.1:7001/api'
+  baseURL: 'http://127.0.0.1:7002/api'
 });
 
 
