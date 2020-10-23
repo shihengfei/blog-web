@@ -1,5 +1,5 @@
 <template>
-  <div class="article-item" @click="toArticleDetails">
+  <nuxt-link class="article-item" :to="'/article/' + article.articleId">
     <div class="article-title">{{ article.articleTitle }}</div>
     <div class="article-date">
       {{ article.createdAt | dateFilter("MMMM Do,YYYY") }}
@@ -17,7 +17,7 @@
     <div class="article-top" v-if="article.isTop">
       <span class="iconfont icon-top"></span>
     </div>
-  </div>
+  </nuxt-link>
 </template>
 
 <script>
@@ -26,11 +26,6 @@ export default {
     article: {
       type: Object,
       required: true,
-    },
-  },
-  methods: {
-    toArticleDetails() {
-      this.$router.push(`/article/${this.article.articleId}`);
     },
   },
 };
