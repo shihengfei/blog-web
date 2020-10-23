@@ -128,12 +128,14 @@ export default {
     },
     secondCategory(e) {
       if (!e) return "-";
+      console.log(e);
       const categoryArr = e.split(",");
+      console.log(categoryArr);
       return categoryArr
         .map(
           (id) =>
             self.categoryList
-              .map((item) => item.children)
+              .map((item) => (item.children ? item.children : []))
               .flat()
               .filter((item) => item.categoryId === id)[0].categoryName
         )
