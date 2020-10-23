@@ -12,7 +12,8 @@
       >
         <nuxt-link :to="item.link" v-for="(item, index) in navBar" :key="index">
           <el-menu-item :index="item.link">
-            <i class="el-icon-menu"></i>
+            <!-- <i class="el-icon-menu"></i> -->
+            <span class="iconfont" :class="'icon-' + item.icon"></span>
             <span slot="title">{{ item.name }}</span>
           </el-menu-item>
         </nuxt-link>
@@ -38,14 +39,22 @@ export default {
         {
           name: "首页",
           link: "/admin/main/home",
+          icon: "home",
         },
         {
           name: "文章分类",
           link: "/admin/main/articleCategory",
+          icon: "category",
         },
         {
           name: "文章列表",
           link: "/admin/main/articleList",
+          icon: "list",
+        },
+        {
+          name: "静态化部署",
+          link: "/admin/main/staticBuild",
+          icon: "build",
         },
       ],
     };
@@ -105,9 +114,9 @@ export default {
   width: 150px !important;
   transition: width 0.5s;
   .el-menu {
-    width: 150px!important;
+    width: 150px !important;
     &.el-menu--collapse {
-      width: 64px!important;
+      width: 64px !important;
     }
   }
   &.collapse {

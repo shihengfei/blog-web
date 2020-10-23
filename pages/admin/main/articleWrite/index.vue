@@ -246,10 +246,6 @@ export default {
       this.saveMessage = `${Moment().format(
         "YYYY-MM-DD HH:mm:ss"
       )} 已保存至草稿`;
-      // this.$notify.success({
-      //   title: "温馨提示",
-      //   message: `${Moment().format("YYYY-MM-DD HH:mm:ss")} 已保存至草稿`,
-      // });
     },
     /*
      *@title: 标题数据改变

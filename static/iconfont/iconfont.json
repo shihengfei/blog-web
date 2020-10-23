@@ -6,6 +6,34 @@
   "description": "个人博客",
   "glyphs": [
     {
+      "icon_id": "683285",
+      "name": "首页",
+      "font_class": "home",
+      "unicode": "e660",
+      "unicode_decimal": 58976
+    },
+    {
+      "icon_id": "689261",
+      "name": "类目 品类 分类 类别.2",
+      "font_class": "category",
+      "unicode": "e7f8",
+      "unicode_decimal": 59384
+    },
+    {
+      "icon_id": "3545532",
+      "name": "列表",
+      "font_class": "list",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "7045318",
+      "name": "部署发布",
+      "font_class": "build",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
       "icon_id": "1018905",
       "name": "关闭",
       "font_class": "close",
