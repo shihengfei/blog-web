@@ -18,6 +18,14 @@
     <div class="main-wrap">
       <articleItem v-for="item in articleList" :key="item.articleId" :article="item" />
     </div>
+    <div class="page-wrap">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="total"
+        @current-change="currentChange"
+      ></el-pagination>
+    </div>
   </div>
 </template>
 
@@ -30,16 +38,27 @@ export default {
     articleItem,
   },
   async asyncData() {
-    const result = await Axios.get("/web/article/list", {
+    const pageObj = {
       pageNo: 1,
       pageSize: 10,
-    });
+    };
+    const result = await Axios.get("/web/article/list", pageObj);
     return {
       articleList: result.rows,
       total: result.count,
+      pageObj,
     };
   },
   methods: {
+    async getArticleList() {
+      const result = await Axios.get("/web/article/list", this.pageObj);
+      this.articleList = [...this.articleList, ...result.rows];
+      this.total = result.count;
+    },
+    currentChange(e) {
+      this.pageObj.pageNo = e;
+      this.getArticleList();
+    },
     goAdmin() {
       window.open("/admin/login", "_blank");
     },
@@ -91,6 +110,12 @@ export default {
   &-wrap {
     // background: #f4f4f4;
     padding: 30px 24px;
+  }
+}
+.page {
+  &-wrap {
+    margin-bottom: 20px;
+    text-align: center;
   }
 }
 </style>
