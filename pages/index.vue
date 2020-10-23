@@ -40,7 +40,7 @@ export default {
   async asyncData() {
     const pageObj = {
       pageNo: 1,
-      pageSize: 10,
+      pageSize: 9999,
     };
     const result = await Axios.get("/web/article/list", pageObj);
     return {
@@ -50,15 +50,15 @@ export default {
     };
   },
   methods: {
-    async getArticleList() {
-      const result = await Axios.get("/web/article/list", this.pageObj);
-      this.articleList = [...this.articleList, ...result.rows];
-      this.total = result.count;
-    },
-    currentChange(e) {
-      this.pageObj.pageNo = e;
-      this.getArticleList();
-    },
+    // async getArticleList() {
+    //   const result = await Axios.get("/web/article/list", this.pageObj);
+    //   this.articleList = [...this.articleList, ...result.rows];
+    //   this.total = result.count;
+    // },
+    // currentChange(e) {
+    //   this.pageObj.pageNo = e;
+    //   this.getArticleList();
+    // },
     goAdmin() {
       window.open("/admin/login", "_blank");
     },
