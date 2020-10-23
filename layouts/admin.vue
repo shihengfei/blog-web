@@ -3,7 +3,7 @@
     <el-aside :class="isCollapse && 'collapse'">
       <div class="logo">博客管理系统</div>
       <el-menu
-        :default-active="nowPath"
+        :default-active="routerPath"
         class="el-menu-vertical-demo"
         background-color="#001529"
         text-color="#fff"
@@ -12,7 +12,6 @@
       >
         <nuxt-link :to="item.link" v-for="(item, index) in navBar" :key="index">
           <el-menu-item :index="item.link">
-            <!-- <i class="el-icon-menu"></i> -->
             <span class="iconfont" :class="'icon-' + item.icon"></span>
             <span slot="title">{{ item.name }}</span>
           </el-menu-item>
@@ -60,12 +59,15 @@ export default {
     };
   },
   computed: {
-    nowPath() {
+    routerPath() {
       return this.$route.path;
     },
     isCollapse() {
       return this.$store.state["admin"].isCollapse;
     },
+  },
+  mounted() {
+    console.log(this.routerPath);
   },
   methods: {
     switchCollapse() {
