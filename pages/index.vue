@@ -2,7 +2,10 @@
   <!-- 首页 -->
   <div class="home-wrap">
     <!-- 顶部banner区域 start -->
-    <div class="banner-wrap" style="background-image: url(https://ncdn.camarts.cn/dabe33ef.jpg)">
+    <div
+      class="banner-wrap"
+      style="background-image: url(https://ncdn.camarts.cn/dabe33ef.jpg)"
+    >
       <img
         class="banner-avatar"
         src="https://www.sanghangning.cn/assets/img/index-logo.acd896b1.gif"
@@ -16,7 +19,11 @@
     </div>
     <!-- 顶部banner区域 end -->
     <div class="main-wrap">
-      <articleItem v-for="item in articleList" :key="item.articleId" :article="item" />
+      <articleItem
+        v-for="item in articleList"
+        :key="item.articleId"
+        :article="item"
+      />
     </div>
   </div>
 </template>
@@ -30,15 +37,9 @@ export default {
     articleItem,
   },
   async asyncData() {
-    const pageObj = {
-      pageNo: 1,
-      pageSize: 9999,
-    };
-    const result = await Axios.get("/web/article/list", pageObj);
+    const result = await Axios.get("/web/article/list");
     return {
-      articleList: result.rows,
-      total: result.count,
-      pageObj,
+      articleList: result,
     };
   },
   methods: {

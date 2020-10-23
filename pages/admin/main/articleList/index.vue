@@ -3,7 +3,11 @@
     <div class="article-header">
       <el-form :inline="true" ref="queryForm">
         <el-form-item label="文章标题">
-          <el-input placeholder="输入文章标题" clearable v-model="form.articleTitle" />
+          <el-input
+            placeholder="输入文章标题"
+            clearable
+            v-model="form.articleTitle"
+          />
         </el-form-item>
         <el-form-item label="文章分类">
           <el-cascader
@@ -33,41 +37,68 @@
           <el-button type="primary" @click="search">查询</el-button>
         </el-form-item>
       </el-form>
-      <el-button type="primary" icon="el-icon-plus" @click="createArticle">添加文章</el-button>
+      <el-button type="primary" icon="el-icon-plus" @click="createArticle"
+        >添加文章</el-button
+      >
     </div>
     <div class="article-main">
       <el-table :data="articeleList" border v-loading="listLoading">
-        <el-table-column prop="articleTitle" label="标题" align="center" width="300"></el-table-column>
+        <el-table-column
+          prop="articleTitle"
+          label="标题"
+          align="center"
+          width="300"
+        ></el-table-column>
         <el-table-column label="一级分类" align="center">
-          <template slot-scope="scope">{{ scope.row.firstCategoryId | firstCategory }}</template>
+          <template slot-scope="scope">{{
+            scope.row.firstCategoryId | firstCategory
+          }}</template>
         </el-table-column>
         <el-table-column label="二级分类" align="center">
-          <template slot-scope="scope">{{ scope.row.secondCategoryId | secondCategory }}</template>
+          <template slot-scope="scope">{{
+            scope.row.secondCategoryId | secondCategory
+          }}</template>
         </el-table-column>
         <el-table-column label="状态" width="70" align="center">
           <template slot-scope="scope">
-            <el-tag type="success" v-if="scope.row.articleState === 'draft'">草稿</el-tag>
+            <el-tag type="success" v-if="scope.row.articleState === 'draft'"
+              >草稿</el-tag
+            >
             <el-tag v-else>已发布</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="类型" width="100" align="center">
           <template slot-scope="scope">
-            <el-tag type="info" v-if="scope.row.articleType === 'markdown'">markdown</el-tag>
+            <el-tag type="info" v-if="scope.row.articleType === 'markdown'"
+              >markdown</el-tag
+            >
             <el-tag type="warning" v-else>富文本</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="置顶" width="100" align="center">
+          <template slot-scope="scope">
+            <el-switch
+              @change="
+                (state) => {
+                  topChange(state, scope.row);
+                }
+              "
+              v-model="scope.row.isTop"
+              :disabled="scope.row.articleState === 'draft'"
+              active-color="#13ce66"
+              inactive-color="#ff4949"
+            >
+            </el-switch>
           </template>
         </el-table-column>
         <el-table-column label="创建时间" width="150px" align="center">
           <template slot-scope="scope">
-            {{
-            scope.row.createdAt | dateFilter
-            }}
+            {{ scope.row.createdAt | dateFilter }}
           </template>
         </el-table-column>
         <el-table-column label="更新时间" width="150px" align="center">
           <template slot-scope="scope">
-            {{
-            scope.row.updatedAt | dateFilter
-            }}
+            {{ scope.row.updatedAt | dateFilter }}
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center" width="160">
@@ -76,17 +107,20 @@
               type="danger"
               @click="del(scope.row)"
               v-if="scope.row.articleState === 'draft'"
-            >删除</el-button>
+              >删除</el-button
+            >
             <el-button
               type="primary"
               @click="edit(scope.row)"
               v-if="scope.row.articleState === 'draft'"
-            >编辑</el-button>
+              >编辑</el-button
+            >
             <el-button
               type="warning"
               @click="taskBack(scope.row)"
               v-if="scope.row.articleState === 'formal'"
-            >收回</el-button>
+              >收回</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -128,9 +162,7 @@ export default {
     },
     secondCategory(e) {
       if (!e) return "-";
-      console.log(e);
       const categoryArr = e.split(",");
-      console.log(categoryArr);
       return categoryArr
         .map(
           (id) =>
@@ -331,6 +363,34 @@ export default {
           this.getArticleList();
         },
       });
+    },
+    /*
+     *@name: 置顶操作
+     *@param:{type}
+     *@description:
+     *@return:
+     *@author: lupan
+     *@date: 2020-10-23 20:25:41
+     */
+    async topChange(state, row) {
+      const loading = this.$loading({
+        lock: true,
+        text: "修改置顶状态",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      const result = await Axios.put(
+        `/admin/article/top/${row.articleId}`,
+        { isTop: state },
+        { allData: true }
+      );
+      loading.close();
+      if (result.success) {
+        this.$message.success(
+          "文章置顶状态修改成功，请手动执行或等待自动执行静态化部署"
+        );
+      }
+      this.getArticleList();
     },
   },
 };

@@ -6,6 +6,13 @@
   "description": "个人博客",
   "glyphs": [
     {
+      "icon_id": "9627002",
+      "name": "置顶",
+      "font_class": "top",
+      "unicode": "e890",
+      "unicode_decimal": 59536
+    },
+    {
       "icon_id": "683285",
       "name": "首页",
       "font_class": "home",

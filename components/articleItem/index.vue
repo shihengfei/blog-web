@@ -1,15 +1,21 @@
 <template>
   <nuxt-link class="article-item" :to="'/article/' + article.articleId">
     <div class="article-title">{{ article.articleTitle }}</div>
-    <div class="article-date">{{ article.createdAt | dateFilter('MMMM Do,YYYY') }}</div>
+    <div class="article-date">
+      {{ article.createdAt | dateFilter("MMMM Do,YYYY") }}
+    </div>
     <div class="article-category">
       <el-tag
         v-for="item in [...article.firstCategory, ...article.secondCategory]"
         :key="item.categoryId"
         :style="{
-          background: item.categoryBgColor
+          background: item.categoryBgColor,
         }"
-      >{{ item.categoryName }}</el-tag>
+        >{{ item.categoryName }}</el-tag
+      >
+    </div>
+    <div class="article-top" v-if="article.isTop">
+      <span class="iconfont icon-top"></span>
     </div>
   </nuxt-link>
 </template>
@@ -38,6 +44,7 @@ export default {
     margin-top: 20px;
     transition: background 0.5s;
     cursor: pointer;
+    position: relative;
     &:first-child {
       margin-top: 0;
     }
@@ -60,6 +67,21 @@ export default {
       &--mini {
         border: none;
       }
+    }
+  }
+  &-top {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-top: 50px solid #000;
+    border-left: 50px solid transparent;
+    color: #ffffff;
+    .iconfont {
+      position: absolute;
+      top: -40px;
+      left: -20px;
     }
   }
 }
