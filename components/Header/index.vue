@@ -9,7 +9,11 @@
         </div>
         <!-- logo end -->
         <div class="peeler-wrap">
-          <span class="iconfont" :class="'icon-' + blog.skin.icon" @click="switchSkin" />
+          <span
+            class="iconfont"
+            :class="'icon-' + blog.skin.icon"
+            @click="switchSkin"
+          />
         </div>
         <!-- 搜索区域 start -->
         <div class="search-container">
@@ -24,7 +28,8 @@
               class="navBar-item__link"
               active-class="navBar-item__link__active"
               :exact="item.exact"
-            >{{ item.name }}</nuxt-link>
+              >{{ item.name }}</nuxt-link
+            >
           </div>
         </div>
       </div>
@@ -41,7 +46,11 @@
           ></span>
         </div>
         <div class="peeler-wrap">
-          <span class="iconfont" :class="'icon-' + blog.skin.icon" @click="switchSkin" />
+          <span
+            class="iconfont"
+            :class="'icon-' + blog.skin.icon"
+            @click="switchSkin"
+          />
         </div>
         <!-- 搜索区域 start -->
         <div class="search-container">
@@ -53,7 +62,11 @@
     </div>
     <!-- mobile顶部 end -->
     <!-- mobile 左侧抽屉 start -->
-    <div class="sidebar-mark" @click="mobileNavBarShow = false" v-show="mobileNavBarShow"></div>
+    <div
+      class="sidebar-mark"
+      @click="mobileNavBarShow = false"
+      v-show="mobileNavBarShow"
+    ></div>
     <aside class="sidebar" :class="mobileNavBarShow && 'sidebar-open'">
       <div class="sidebar-wrap">
         <div class="sidebar-item" v-for="(item, index) in navBar" :key="index">
@@ -62,7 +75,8 @@
             class="sidebar-item__link"
             active-class="sidebar-item__link__active"
             :exact="item.exact"
-          >{{ item.name }}</nuxt-link>
+            >{{ item.name }}</nuxt-link
+          >
         </div>
       </div>
     </aside>
@@ -116,7 +130,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.$store.state["blog"], this.$route.path);
     if (this.$route.path === "/") {
       window.onscroll = () => {
         this.scrollTop =
