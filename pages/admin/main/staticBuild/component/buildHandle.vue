@@ -52,7 +52,8 @@ export default {
      *@date: 2020-10-23 14:05:37
      */
     initSocket() {
-      this.WS = Socket("http://127.0.0.1:7002");
+      this.WS = Socket("http://106.54.98.224:7002");
+      // this.WS = Socket("http://127.0.0.1:7002");
       this.WS.on("connect", () => {
         console.log("socket连接成功!");
         this.$notify({
