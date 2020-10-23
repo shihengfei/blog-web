@@ -301,7 +301,9 @@ export default {
           );
           cb();
           if (!result.success) return;
-          this.$message.success("文章删除成功");
+          this.$message.success(
+            "文章删除成功，请手动执行或等待自动执行静态化部署"
+          );
           this.getArticleList();
         },
       });
@@ -323,7 +325,9 @@ export default {
           );
           cb();
           if (!result.success) return;
-          this.$message.success("文章收回成功");
+          this.$message.success(
+            "文章收回成功，请手动执行或等待自动执行静态化部署"
+          );
           this.getArticleList();
         },
       });

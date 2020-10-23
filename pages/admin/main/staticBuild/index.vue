@@ -6,6 +6,7 @@
       </el-tab-pane>
       <el-tab-pane label="部署日志">部署日志</el-tab-pane>
       <el-tab-pane label="日志分析">日志分析</el-tab-pane>
+      <el-tab-pane label="自动部署设置">自动部署设置</el-tab-pane>
     </el-tabs>
   </div>
 </template>

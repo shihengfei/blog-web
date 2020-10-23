@@ -209,7 +209,9 @@ export default {
           );
           cb();
           if (!result.success) return;
-          this.$message.success("文章发布成功");
+          this.$message.success(
+            "文章发布成功，请手动执行或等待自动执行静态化部署"
+          );
           this.$router.push("/admin/main/articleList");
         },
       });
