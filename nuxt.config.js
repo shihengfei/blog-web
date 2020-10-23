@@ -4,6 +4,11 @@ export default {
   server: {
     port: 8001
   },
+  env: {
+    HTTP_API: process.env.HTTP_API,
+    SCOKET_API: process.env.SCOKET_API,
+    NODE_ENV: process.env.NODE_ENV
+  },
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: '鲁攀的个人博客',

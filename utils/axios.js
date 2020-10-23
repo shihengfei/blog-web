@@ -8,10 +8,8 @@ import { Message } from 'element-ui'
 
 
 // 鉴权白名单
-// const authWhiteList = ['/user/login'];
-
 const Service = axios.create({
-  baseURL: 'http://127.0.0.1:7002/api'
+  baseURL: process.env.HTTP_API
 });
 
 

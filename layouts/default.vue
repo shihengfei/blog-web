@@ -22,6 +22,7 @@ export default {
     },
   },
   mounted() {
+    console.log(process);
     document.getElementById("root").className = this.skinClass;
   },
 };
