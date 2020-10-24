@@ -50,7 +50,7 @@ export default {
     font-weight: 400;
     background: #ffffff;
     transition: background 0.5s;
-    // height: calc(100vh - 60px);
+    min-height: calc(100vh - 60px);
     margin-top: 60px;
     padding: 2rem 2.5rem;
     // overflow-y: auto;
