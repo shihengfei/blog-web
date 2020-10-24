@@ -53,6 +53,7 @@ export default {
   cursor: pointer;
   color: #000;
   transition: color 0.5s;
+  transition: right 0.5s;
   .iconfont {
     font-size: 50px;
   }

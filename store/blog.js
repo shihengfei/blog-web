@@ -10,7 +10,7 @@ export const mutations = {
   switchSkin(state) {
     if (state.skin.class === 'default') {
       state.skin = {
-        class: 'theme--dark',
+        class: 'theme--night',
         icon: 'sun'
       }
     } else {
