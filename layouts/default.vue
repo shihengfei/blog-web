@@ -9,7 +9,7 @@
 <script>
 import Header from "@components/Header";
 import BackTop from "@components/backTop";
-import { Cache } from "@utils";
+import { Cache, Axios } from "@utils";
 
 export default {
   components: {
@@ -26,6 +26,13 @@ export default {
   },
   mounted() {
     document.getElementById("root").className = this.skinClass;
+    this.getConfig();
+  },
+  methods: {
+    async getConfig() {
+      const result = await Axios.get("/web/config");
+      this.$store.commit("blog/setTitle", result.title);
+    },
   },
 };
 </script>

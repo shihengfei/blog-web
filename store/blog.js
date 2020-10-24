@@ -7,6 +7,9 @@ export const state = () => ({
 })
 
 export const mutations = {
+  setTitle(state, title) {
+    state.title = title
+  },
   switchSkin(state) {
     if (state.skin.class === 'default') {
       state.skin = {
