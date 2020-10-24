@@ -25,6 +25,7 @@
         :article="item"
       />
     </div>
+    <div class="no-more">我也是有底线的~</div>
   </div>
 </template>
 
@@ -95,5 +96,11 @@ export default {
     // background: #f4f4f4;
     padding: 30px 24px;
   }
+}
+.no-more {
+  color: #555;
+  text-align: center;
+  font-size: 14px;
+  padding-bottom: 30px;
 }
 </style>

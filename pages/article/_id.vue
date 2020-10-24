@@ -1,7 +1,9 @@
 <template>
   <div class="article-details-wrap">
     <div class="article-details-title">{{ article.articleTitle }}</div>
-    <div class="article-details-date">{{ article.createdAt | dateFilter('YYYY/MM/DD HH:mm:ss') }}</div>
+    <div class="article-details-date">
+      {{ article.createdAt | dateFilter("YYYY/MM/DD HH:mm:ss") }}
+    </div>
     <div
       class="article-details-content markdown-body"
       v-html="article.articleContent.articleContentCode"
@@ -48,10 +50,10 @@ export default {
     font-weight: 400;
     background: #ffffff;
     transition: background 0.5s;
-    height: calc(100vh - 60px);
+    // height: calc(100vh - 60px);
     margin-top: 60px;
     padding: 2rem 2.5rem;
-    overflow-y: auto;
+    // overflow-y: auto;
   }
   &-title {
     font-weight: bold;

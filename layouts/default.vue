@@ -2,16 +2,19 @@
   <div id="root" :class="skinClass">
     <Header />
     <Nuxt />
+    <BackTop />
   </div>
 </template>
 
 <script>
-import Header from "@components/Header"; /* eslint-disable-line */
+import Header from "@components/Header";
+import BackTop from "@components/backTop";
 import { Cache } from "@utils";
 
 export default {
   components: {
     Header,
+    BackTop,
   },
   data() {
     return {};
@@ -86,6 +89,9 @@ export default {
     }
     .markdown-body pre {
       background: #a8a19f;
+    }
+    .back-top {
+      color: #ffffff;
     }
   }
 }
