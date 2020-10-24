@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { $ } from "@utils";
+
 export default {
   data() {
     return {
@@ -18,9 +20,9 @@ export default {
     };
   },
   mounted() {
-    window.onscroll = () => {
+    $(window).scroll(() => {
       this.scrollFun();
-    };
+    });
   },
   methods: {
     scrollFun() {

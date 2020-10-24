@@ -37,10 +37,19 @@ export default {
   components: {
     articleItem,
   },
-  async asyncData() {
-    const result = await Axios.get("/web/article/list");
+  async asyncData({ app }) {
+    const [config, articleList] = await Promise.all([
+      Axios.get("/web/config"),
+      Axios.get("/web/article/list"),
+    ]);
+    app.head.title = config.title;
+    app.head.meta = [
+      { charset: "utf-8" },
+      { name: "description", content: config.description },
+      { name: "keywords", content: config.keywords },
+    ];
     return {
-      articleList: result,
+      articleList,
     };
   },
   methods: {

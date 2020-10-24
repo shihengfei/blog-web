@@ -31,8 +31,16 @@ export default {
     };
   },
   async asyncData({ app, params }) {
-    const article = await Axios.get(`/web/article/view/${params.id}`);
-    app.head.title = `${article.articleTitle} | 鲁攀的个人博客`;
+    const [config, article] = await Promise.all([
+      Axios.get("/web/config"),
+      Axios.get(`/web/article/view/${params.id}`),
+    ]);
+    app.head.title = `${article.articleTitle} | ${config.title}`;
+    app.head.meta = [
+      { charset: "utf-8" },
+      { name: "description", content: config.description },
+      { name: "keywords", content: config.keywords },
+    ];
     return {
       article,
     };

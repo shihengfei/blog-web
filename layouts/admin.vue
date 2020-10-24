@@ -20,8 +20,13 @@
     </el-aside>
     <el-container>
       <el-header>
-        <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'" @click="switchCollapse"></i>
-        <el-button class="sign-out" type="text" @click="signOut">退出</el-button>
+        <i
+          :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
+          @click="switchCollapse"
+        ></i>
+        <el-button class="sign-out" type="text" @click="signOut"
+          >退出</el-button
+        >
       </el-header>
       <el-main>
         <Nuxt />
@@ -54,6 +59,11 @@ export default {
           name: "静态化部署",
           link: "/admin/main/staticBuild",
           icon: "build",
+        },
+        {
+          name: "设置中心",
+          link: "/admin/main/setting",
+          icon: "setting",
         },
       ],
     };

@@ -85,6 +85,8 @@
 </template>
 
 <script>
+import { $ } from "@utils";
+
 export default {
   data() {
     return {
@@ -131,10 +133,10 @@ export default {
   },
   mounted() {
     if (this.$route.path === "/") {
-      window.onscroll = () => {
+      $(window).scroll(() => {
         this.scrollTop =
           document.documentElement.scrollTop || document.body.scrollTop;
-      };
+      });
     }
   },
   methods: {
