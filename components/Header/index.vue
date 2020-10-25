@@ -149,7 +149,7 @@ export default {
 </script>
 
 <style lang="less">
-@media screen and (max-width: 720px) {
+@media only screen and (max-width: 720px) {
   .pc-header {
     display: none;
   }
@@ -157,7 +157,7 @@ export default {
     display: block;
   }
 }
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 721px) {
   .pc-header {
     display: block;
   }

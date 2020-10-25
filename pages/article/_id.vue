@@ -37,9 +37,11 @@ export default {
     ]);
     app.head.title = `${article.articleTitle} | ${config.title}`;
     app.head.meta = [
-      { charset: "utf-8" },
-      { name: "description", content: config.description },
-      { name: "keywords", content: config.keywords },
+      ...app.head.meta,
+      ...[
+        { name: "description", content: config.description },
+        { name: "keywords", content: config.keywords },
+      ],
     ];
     return {
       article,

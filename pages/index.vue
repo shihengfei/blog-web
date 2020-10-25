@@ -42,11 +42,14 @@ export default {
       Axios.get("/web/config"),
       Axios.get("/web/article/list"),
     ]);
+    console.log(app.head.meta);
     app.head.title = config.title;
     app.head.meta = [
-      { charset: "utf-8" },
-      { name: "description", content: config.description },
-      { name: "keywords", content: config.keywords },
+      ...app.head.meta,
+      ...[
+        { name: "description", content: config.description },
+        { name: "keywords", content: config.keywords },
+      ],
     ];
     return {
       articleList,
