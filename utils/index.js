@@ -4,6 +4,7 @@ import * as axios from './axios';
 import * as uuid from 'node-uuid';
 import * as underscore from 'underscore';
 import * as jquery from 'jquery';
+import * as cos from './cos';
 
 moment.locale('zh-cn');
 
@@ -13,3 +14,4 @@ export const Axios = axios;
 export const Uuid = uuid;
 export const _ = underscore;
 export const $ = jquery;
+export const Cos = cos;

@@ -1,11 +1,18 @@
 <template>
   <no-ssr>
-    <mavon-editor :value="editorContent" @change="change" codeStyle="atelier-forest-dark" />
+    <mavon-editor
+      :value="editorContent"
+      @change="change"
+      ref="md"
+      codeStyle="atelier-forest-dark"
+      @imgAdd="handleEditorImgAdd"
+      @imgDel="handleEditorImgDel"
+    />
   </no-ssr>
 </template>
 
 <script>
-import { _ } from "@utils";
+import { _, Cos } from "@utils";
 
 export default {
   data() {
@@ -14,6 +21,27 @@ export default {
     };
   },
   methods: {
+    /*
+     *@title: 添加图片
+     *@description:
+     *@author: lupan
+     *@date: 2020-10-26 14:16:28
+     */
+    async handleEditorImgAdd(pos, file) {
+      const cosResult = await Cos.upload(file);
+      this.$refs["md"].$img2Url(pos, `https://${cosResult.Location}`);
+      console.log(cosResult.Location);
+    },
+    /*
+     *@title: 删除图片
+     *@description:
+     *@author: lupan
+     *@date: 2020-10-26 14:16:45
+     */
+    async handleEditorImgDel(pos) {
+      const posArr = pos[0].split("/");
+      await Cos.del(posArr[posArr.length - 1]);
+    },
     /*
      *@title: 初始化文章内容
      *@description:

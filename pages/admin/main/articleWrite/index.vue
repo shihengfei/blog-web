@@ -62,19 +62,23 @@ export default {
   head() {
     return {
       script: [
+        // {
+        //   type: "text/javascript",
+        //   src: "https://unpkg.com/wangeditor/dist/wangEditor.min.js",
+        //   body: true,
+        // },
         {
           type: "text/javascript",
-          src: "https://unpkg.com/wangeditor/dist/wangEditor.min.js",
+          src: "/js/cos-js-sdk-v5.js",
           body: true,
         },
       ],
     };
   },
-  asyncData({ app, query }, callback) {
+  asyncData({ app, query }) {
     app.head.title = `博客管理系统-${
       query.type === "create" ? "添加文章" : "编辑文章"
     }`;
-    callback(null, {});
   },
   components: {
     markdownEditor,
