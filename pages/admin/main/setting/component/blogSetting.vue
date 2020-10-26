@@ -13,28 +13,12 @@
         <el-input placeholder="输入网站名称" v-model="form.title" />
       </el-form-item>
       <el-form-item label="网站描述" prop="description">
-        <el-input
-          type="textarea"
-          :rows="2"
-          placeholder="输入网站描述"
-          v-model="form.description"
-        />
+        <el-input type="textarea" :rows="2" placeholder="输入网站描述" v-model="form.description" />
       </el-form-item>
       <el-form-item label="网站关键词" prop="keywords">
-        <el-input
-          type="textarea"
-          :rows="2"
-          placeholder="输入网站关键词"
-          v-model="form.keywords"
-        />
+        <el-input type="textarea" :rows="2" placeholder="输入网站关键词" v-model="form.keywords" />
       </el-form-item>
-      <el-button
-        size="medium"
-        type="primary"
-        style="width: 100%"
-        @click="submit"
-        >更新设置</el-button
-      >
+      <el-button size="medium" type="primary" style="width: 100%" @click="submit">更新设置</el-button>
     </el-form>
     <Confirm ref="confirm" />
   </div>
@@ -104,7 +88,6 @@ export default {
             this.getWebSetting();
           },
         });
-        console.log(this.form);
       });
     },
   },

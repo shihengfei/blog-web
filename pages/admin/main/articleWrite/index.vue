@@ -283,7 +283,6 @@ export default {
     markdownEditorChange({ source, code }) {
       this.form.articleContentSource = source;
       this.form.articleContentCode = code;
-      console.log(this.form);
       this.save();
     },
     /*

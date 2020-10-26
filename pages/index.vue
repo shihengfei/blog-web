@@ -2,10 +2,7 @@
   <!-- 首页 -->
   <div class="home-wrap">
     <!-- 顶部banner区域 start -->
-    <div
-      class="banner-wrap"
-      style="background-image: url(https://ncdn.camarts.cn/dabe33ef.jpg)"
-    >
+    <div class="banner-wrap" style="background-image: url(https://ncdn.camarts.cn/dabe33ef.jpg)">
       <img
         class="banner-avatar"
         src="https://www.sanghangning.cn/assets/img/index-logo.acd896b1.gif"
@@ -19,11 +16,7 @@
     </div>
     <!-- 顶部banner区域 end -->
     <div class="main-wrap">
-      <articleItem
-        v-for="item in articleList"
-        :key="item.articleId"
-        :article="item"
-      />
+      <articleItem v-for="item in articleList" :key="item.articleId" :article="item" />
     </div>
     <div class="no-more">我也是有底线的~</div>
   </div>
@@ -42,7 +35,6 @@ export default {
       Axios.get("/web/config"),
       Axios.get("/web/article/list"),
     ]);
-    console.log(app.head.meta);
     app.head.title = config.title;
     app.head.meta = [
       ...app.head.meta,

@@ -20,13 +20,8 @@
     </el-aside>
     <el-container>
       <el-header>
-        <i
-          :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
-          @click="switchCollapse"
-        ></i>
-        <el-button class="sign-out" type="text" @click="signOut"
-          >退出</el-button
-        >
+        <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'" @click="switchCollapse"></i>
+        <el-button class="sign-out" type="text" @click="signOut">退出</el-button>
       </el-header>
       <el-main>
         <Nuxt />
@@ -76,9 +71,7 @@ export default {
       return this.$store.state["admin"].isCollapse;
     },
   },
-  mounted() {
-    console.log(this.routerPath);
-  },
+  mounted() {},
   methods: {
     switchCollapse() {
       this.$store.commit("admin/switchCollapse");

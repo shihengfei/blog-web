@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style lang="less">
-@import url("~static/less/night.less");
+@import url("~static/less/index.less");
 #root {
   transition: background 0.5s;
   background: #f4f4f4;

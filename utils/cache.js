@@ -5,7 +5,6 @@ import jsCookie from 'js-cookie';
 const name = 'lupan_blog'
 
 export const set = (key, data) => {
-  console.log(key, data)
   jsCookie.set(`${name}_${key}`, JSON.stringify(data))
 }
 
