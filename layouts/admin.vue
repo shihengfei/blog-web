@@ -32,6 +32,7 @@
 
 <script>
 export default {
+  middleware: "auth",
   data() {
     return {
       navBar: [
@@ -83,6 +84,7 @@ export default {
         type: "warning",
       })
         .then(() => {
+          this.$store.commit("admin/setToken", null);
           this.$router.push("/admin/login");
         })
         .catch(() => {});

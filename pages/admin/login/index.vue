@@ -4,12 +4,12 @@
     <canvas class="login-canvas" id="loginCanvas" />
     <div class="login-form">
       <div class="login-form-title">登录</div>
-      <el-form>
-        <el-form-item>
+      <el-form ref="form" :rules="rules" :model="form">
+        <el-form-item prop="account">
           <el-input prefix-icon="el-icon-user-solid" v-model="form.account" />
         </el-form-item>
-        <el-form-item>
-          <el-input prefix-icon="el-icon-lock" v-model="form.pwd" show-password />
+        <el-form-item prop="password">
+          <el-input prefix-icon="el-icon-lock" v-model="form.password" show-password />
         </el-form-item>
         <el-button type="primary" size="medium" style="width: 100%;" @click="login">登录</el-button>
       </el-form>
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { Axios } from "@utils";
+
 export default {
   layout: "blank",
   head() {
@@ -30,14 +32,30 @@ export default {
           body: true,
           async: true,
         },
-      ]
+      ],
     };
   },
   data() {
     return {
       form: {
         account: null,
-        pwd: null,
+        password: null,
+      },
+      rules: {
+        account: [
+          {
+            required: true,
+            message: "输入账号",
+            trigger: "blur",
+          },
+        ],
+        password: [
+          {
+            required: true,
+            message: "输入账号",
+            trigger: "blur",
+          },
+        ],
       },
     };
   },
@@ -63,26 +81,28 @@ export default {
         window.innerWidth,
         window.innerHeight
       );
-
       engine.gravity = engine.GRAVITY_NON_LINEAR;
-
       engine.trail = engine.TRAIL_DROPS;
-
       engine.rain([engine.preset(0, 2, 500)]);
-
       engine.rain(
         [
           engine.preset(3, 3, 0.88),
-
           engine.preset(5, 5, 0.9),
-
           engine.preset(6, 2, 1),
         ],
         100
       );
     },
     login() {
-      this.$router.push("/admin/main/home");
+      this.$refs["form"].validate(async (valid) => {
+        if (!valid) return;
+        const result = await Axios.post("/admin/user/login", this.form, {
+          allData: true,
+        });
+        if (!result.success) return;
+        this.$store.commit("admin/setToken", result.data);
+        this.$router.push("/admin/main/home");
+      });
     },
   },
 };

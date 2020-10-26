@@ -2,12 +2,9 @@
 
 import axios from 'axios'
 import { Message } from 'element-ui'
-// import { Cache } from '@utils';
-// import { router, history } from 'umi';
 
+const whiteList = ['/admin/user/login']
 
-
-// 鉴权白名单
 const Service = axios.create({
   baseURL: process.env.HTTP_API
 });
@@ -15,10 +12,11 @@ const Service = axios.create({
 
 // 添加请求拦截器
 Service.interceptors.request.use(function (config) {
-  // if (!authWhiteList.includes(config.url)) {
-  //   const userInfo = Cache.get('userInfo');
-  //   config['headers']['authorization'] = `Bearer ${userInfo.token}`
-  // }
+  const { url } = config;
+  if (!url.startsWith('/web') && !whiteList.includes(url)) {
+    // 实例初始化完毕以后 nuxt 会在 window 全局注入$nuxt ，通过$nuxt.$store 可以访问 store，$nuxt.$router 可以访问到router，但是需要注意的是，初始化完毕以前是无法访问$nuxt的，所以需要再初始化完毕之后才能使用该方法。
+    config['headers']['authorization'] = `Bearer ${$nuxt.$store.state.admin.token}`
+  }
   // 在发送请求之前做些什么
   return config;
 }, function (error) {
@@ -34,16 +32,11 @@ Service.interceptors.response.use(function (response) {
   if (!data.success && !config.selfTip) {
     Message.error(data.message);
   }
-  // if (data.code === 401) {
-  //   const { pathname, search } = window.location;
-  //   router.push(`/login?callbackUrl=${encodeURIComponent(pathname + search)}`);
-  //   // 清除楚缓存用户信息数据
-  //   const Store = window.g_app._store
-  //   Store.dispatch({ type: 'userInfo/USERINFO', payload: null });
-  //   // Store.dispatch({ type: 'navigation/CHANGE_OPENLIST', payload: null });
-  //   // Store.dispatch({ type: 'navigation/MENU_COLLAPSED', payload: null });
-  //   Store.dispatch({ type: 'navigation/CHANGE_MENULIST', payload: null });
-  // }
+  if (data.code === 401) {
+    const { $store, $router } = $nuxt
+    $store.commit('admin/setToken', null);
+    $router.push('/admin/login');
+  }
   return config.allData ? data : data.data;
 }, function (error) {
   // 对响应错误做点什么
