@@ -1,9 +1,7 @@
 <template>
   <div class="article-details-wrap">
     <div class="article-details-title">{{ article.articleTitle }}</div>
-    <div class="article-details-date">
-      {{ article.createdAt | dateFilter("YYYY/MM/DD HH:mm:ss") }}
-    </div>
+    <div class="article-details-date">{{ article.createdAt | dateFilter("YYYY/MM/DD HH:mm:ss") }}</div>
     <div
       class="article-details-content markdown-body"
       v-html="article.articleContent.articleContentCode"
@@ -19,13 +17,11 @@ export default {
       link: [
         {
           rel: "stylesheet",
-          href:
-            "https://cdn.bootcss.com/github-markdown-css/2.10.0/github-markdown.min.css",
+          href: "/css/github-markdown.min.css",
         },
         {
           rel: "stylesheet",
-          href:
-            "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atelier-forest-dark.min.css",
+          href: "/css/atelier-forest-dark.min.css",
         },
       ],
     };

@@ -23,6 +23,11 @@ export default {
     buildList,
     buildChart,
   },
+  head() {
+    return {
+      title: "博客管理系统-静态化部署",
+    };
+  },
 };
 </script>
 

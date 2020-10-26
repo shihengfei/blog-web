@@ -17,6 +17,11 @@ import BlogSetting from "./component/blogSetting";
 import CosSetting from "./component/cosSetting";
 export default {
   layout: "admin",
+  head() {
+    return {
+      title: "博客管理系统-设置中心",
+    };
+  },
   components: {
     BlogSetting,
     CosSetting,
