@@ -1,6 +1,11 @@
 <template>
   <div class="login-wrap" id="loginWrap">
-    <img src="~/static/images/admin/login1.jpg" alt id="loginBg" class="login-bg" />
+    <img
+      src="~/static/images/admin/login1.jpg"
+      alt
+      id="loginBg"
+      class="login-bg"
+    />
     <canvas class="login-canvas" id="loginCanvas" />
     <div class="login-form">
       <div class="login-form-title">登录</div>
@@ -9,9 +14,19 @@
           <el-input prefix-icon="el-icon-user-solid" v-model="form.account" />
         </el-form-item>
         <el-form-item prop="password">
-          <el-input prefix-icon="el-icon-lock" v-model="form.password" show-password />
+          <el-input
+            prefix-icon="el-icon-lock"
+            v-model="form.password"
+            show-password
+          />
         </el-form-item>
-        <el-button type="primary" size="medium" style="width: 100%;" @click="login">登录</el-button>
+        <el-button
+          type="primary"
+          size="medium"
+          style="width: 100%"
+          @click="login"
+          >登录</el-button
+        >
       </el-form>
     </div>
   </div>
@@ -34,6 +49,11 @@ export default {
         },
       ],
     };
+  },
+  created() {
+    if (this.$store.state.admin.token) {
+      this.$router.push("/admin/main/home");
+    }
   },
   data() {
     return {
