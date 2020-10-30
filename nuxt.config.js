@@ -11,7 +11,7 @@ export default {
   },
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: '鲁攀的个人博客',
+    title: '史恒飞个人博客',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' },
@@ -61,7 +61,7 @@ export default {
   },
   proxy: {
     '/api/': {
-      target: 'http://localhost:7002',
+      target: 'http://localhost:8080',
       changeOrigin: true
     }
   },

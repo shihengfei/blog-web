@@ -298,8 +298,8 @@ export default {
         ...this.queryForm,
       });
       this.listLoading = false;
-      this.articeleList = result ? result.rows : [];
-      this.total = result ? result.count : 0;
+      this.articeleList = result ? result.records : [];
+      this.total = result ? result.total : 0;
     },
     /*
      *@title: 编辑

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env HTTP_API=http://127.0.0.1:7002/api SCOKET_API=http://127.0.0.1:7002 NODE_ENV=development nuxt",
+    "dev": "cross-env HTTP_API=http://127.0.0.1:8080/api SCOKET_API=http://127.0.0.1:8080 NODE_ENV=development nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "cross-env HTTP_API=http://106.54.98.224:7002/api SCOKET_API=http://106.54.98.224:7002 NODE_ENV=production nuxt generate",
